@@ -2,10 +2,29 @@
 
 Use these assignments in Quartus Pin Planner for the first clean build.
 
+Note:
+
+- `uart_tx` and `uart_rx` below are the FPGA-side pins connected to the on-board RS-232 transceiver and DB9 connector.
+- If you connect the board to a laptop through the DB9 port, use a real RS-232 path such as USB-to-RS232, not a direct USB-TTL cable.
+
 | Top-level port | Board signal | FPGA pin | I/O standard |
 | --- | --- | --- | --- |
 | `clock_50` | `CLOCK_50` | `PIN_AJ16` | `3.3-V LVTTL` |
 | `reset_n` | `KEY0` | `PIN_AA26` | `2.5-V` |
+| `uart_tx` | `UART_TXD` | `PIN_H24` | `3.3-V LVTTL` |
+| `uart_rx` | `UART_RXD` | `PIN_B27` | `3.3-V LVTTL` |
+| `lcd_data[7]` | `LCD_DATA[7]` | `PIN_AE4` | `3.3-V LVTTL` |
+| `lcd_data[6]` | `LCD_DATA[6]` | `PIN_AH4` | `3.3-V LVTTL` |
+| `lcd_data[5]` | `LCD_DATA[5]` | `PIN_AE3` | `3.3-V LVTTL` |
+| `lcd_data[4]` | `LCD_DATA[4]` | `PIN_AH2` | `3.3-V LVTTL` |
+| `lcd_data[3]` | `LCD_DATA[3]` | `PIN_AE5` | `3.3-V LVTTL` |
+| `lcd_data[2]` | `LCD_DATA[2]` | `PIN_AH3` | `3.3-V LVTTL` |
+| `lcd_data[1]` | `LCD_DATA[1]` | `PIN_AF3` | `3.3-V LVTTL` |
+| `lcd_data[0]` | `LCD_DATA[0]` | `PIN_AG4` | `3.3-V LVTTL` |
+| `lcd_en` | `LCD_EN` | `PIN_AF4` | `3.3-V LVTTL` |
+| `lcd_rw` | `LCD_RW` | `PIN_AJ3` | `3.3-V LVTTL` |
+| `lcd_rs` | `LCD_RS` | `PIN_AG3` | `3.3-V LVTTL` |
+| `lcd_on` | `LCD_ON` | `PIN_AF27` | `2.5-V` |
 | `ledr[0]` | `LEDR0` | `PIN_T23` | `2.5-V` |
 | `ledr[1]` | `LEDR1` | `PIN_T24` | `2.5-V` |
 | `ledr[2]` | `LEDR2` | `PIN_V27` | `2.5-V` |
@@ -26,10 +45,3 @@ Use these assignments in Quartus Pin Planner for the first clean build.
 | `ledr[17]` | `LEDR17` | `PIN_M22` | `2.5-V` |
 | `ledg[0]` | `LEDG0` heartbeat | `PIN_AA25` | `2.5-V` |
 | `ledg[1]` | `LEDG1` trap | `PIN_AB25` | `2.5-V` |
-
-Optional UART pins for the next step:
-
-| Future port | Board signal | FPGA pin | I/O standard |
-| --- | --- | --- | --- |
-| `uart_tx` | `UART_TXD` | `PIN_H24` | `3.3-V LVTTL` |
-| `uart_rx` | `UART_RXD` | `PIN_B27` | `3.3-V LVTTL` |
