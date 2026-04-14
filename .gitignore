@@ -1,0 +1,28 @@
+# Quartus Prime generated directories
+db/
+incremental_db/
+output_files/
+simulation/
+
+# Local Quartus project files not required for source-only repo
+*.qpf
+*.qsf
+*.sdc
+
+# Quartus/EDA generated logs and reports
+*.qws
+*.bak
+
+# Firmware build artifacts
+firmware/*.elf
+firmware/*.bin
+firmware/*.hex
+firmware/*.map
+firmware/*.lst
+firmware/*.o
+firmware/*.d
+
+# Editor/OS noise
+.DS_Store
+Thumbs.db
+*~
