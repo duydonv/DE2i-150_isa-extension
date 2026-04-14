@@ -3,14 +3,21 @@
 This directory is a fresh minimal bring-up project for DE2i-150:
 
 - `rtl/picorv32.v`: upstream PicoRV32 core copied from the cloned source tree
-- `rtl/de2i_150_pico_blink.v`: minimal top-level with BRAM and LED MMIO only
-- `firmware/`: bare-metal RV32I firmware that blinks LEDs
+- `rtl/simpleuart.v`: UART peripheral from PicoSoC
+- `rtl/lcd_hd44780.v`: HD44780 LCD controller with internal init sequence
+- `rtl/de2i_150_pico_blink.v`: top-level with BRAM, LED MMIO, UART MMIO, and LCD MMIO
+- `firmware/`: bare-metal RV32I firmware for LED, UART, and LCD demo
 - `de2i_150_pico_blink.sdc`: 50 MHz clock constraint
 - `PIN_ASSIGNMENTS.md`: pin list to enter in Quartus Pin Planner
 
 ## Memory map
 
 - `0x0000_0000` to `0x0000_7fff`: on-chip BRAM, 32 KB
+- `0x0200_0004`: UART divider register
+- `0x0200_0008`: UART data register
+- `0x0200_0010`: LCD command register
+- `0x0200_0014`: LCD data register
+- `0x0200_0018`: LCD status register, bit 0 = busy
 - `0x0300_0000`: LED register, low 8 bits drive `ledr[7:0]`
 
 Board note:
@@ -46,6 +53,8 @@ The top-level RTL loads the four byte-lane files. This is intentional: Quartus S
 4. Device: `EP4CGX150DF31C7` (`Cyclone IV GX`).
 5. Add these files:
    - `rtl/picorv32.v`
+   - `rtl/simpleuart.v`
+   - `rtl/lcd_hd44780.v`
    - `rtl/de2i_150_pico_blink.v`
    - `de2i_150_pico_blink.sdc`
 6. Open Pin Planner and enter the pins from `PIN_ASSIGNMENTS.md`.
@@ -58,12 +67,21 @@ The top-level RTL loads the four byte-lane files. This is intentional: Quartus S
 - `LEDG1` stays low in the normal case. If it turns on, the core trapped.
 - `LEDR[7:0]` shifts one lit LED left continuously when the CPU and firmware are running.
 - `LEDR[17:8]` stay off.
+- The kit sends a periodic heartbeat line over UART.
+- Text received from the laptop over UART is echoed back and shown on the LCD.
+
+## UART notes
+
+- Board UART pins go through the on-board RS-232 transceiver.
+- If you use the DE2i-150 DB9 connector, connect it to the laptop with a real RS-232 path such as a USB-to-RS232 adapter.
+- Terminal settings: `115200 8N1`, no flow control.
 
 ## Reset behavior
 
 - `reset_n` is connected to `KEY0`.
 - `KEY0` is active-low: press to reset, release to run.
 
-## Suggested next step
+## LCD notes
 
-After this LED-only bring-up is stable, add UART as the first peripheral extension.
+- The controller initializes the HD44780-compatible LCD in hardware.
+- Firmware only writes commands and characters through MMIO.
