@@ -12,6 +12,15 @@ simulation/
 # Quartus/EDA generated logs and reports
 *.qws
 *.bak
+*_nativelink_simulation.rpt
+
+# Questa/ModelSim generated artifacts
+work/
+transcript
+vsim.wlf
+modelsim.ini
+*.vcd
+*.wlf
 
 # Firmware build artifacts
 firmware/*.elf
